@@ -8,9 +8,8 @@ class TrapeziumContainer extends StatelessWidget {
       child: ClipRRect(
         borderRadius: BorderRadius.circular(40),
         child: Container(
-          width: 80.w, 
-          height: 60.h, 
-         
+          width: 80.w,
+          height: 60.h,
           child: CustomPaint(
             painter: TrapeziumPainter(),
           ),
@@ -23,14 +22,14 @@ class TrapeziumContainer extends StatelessWidget {
 class TrapeziumPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
-    final paint = Paint()..color = Colors.white; 
+    final paint = Paint()..color = Colors.white;
 
     final path = Path()
-      ..moveTo(0, size.height*0.3) // Top left point
-      ..lineTo(size.width , 0) // Top right point
+      ..moveTo(0, size.height * 0.3) // Top left point
+      ..lineTo(size.width, 0) // Top right point
       ..lineTo(size.width, size.height) // Bottom right point
       ..lineTo(0, size.height) // Bottom left point
-      ..close(); 
+      ..close();
 
     canvas.drawPath(path, paint);
   }
@@ -40,5 +39,3 @@ class TrapeziumPainter extends CustomPainter {
     return false;
   }
 }
-
-

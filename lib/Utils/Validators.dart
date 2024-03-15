@@ -11,7 +11,6 @@ String? isValidEmail(String? email) {
   }
 }
 
-
 String? validatePassword(String? password) {
   if (password != null && password.isNotEmpty) {
     // if (RegExp(r'^.{6,}$').hasMatch(password.toString())) {
@@ -30,6 +29,14 @@ String? validatePassword(String? password) {
     //   return false;
     // }
     return null;
+  } else {
+    return 'enter a password';
+  }
+}
+
+String? conirmPassword(String? confirmPassword, String? password) {
+  if (password != null && password.isNotEmpty) {
+    return confirmPassword == password ? null : 'password does not match';
   } else {
     return 'enter a password';
   }

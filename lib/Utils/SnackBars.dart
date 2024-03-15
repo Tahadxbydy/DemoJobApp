@@ -30,3 +30,9 @@ void successSnackbar(BuildContext context, String message) {
 
   ScaffoldMessenger.of(context).showSnackBar(snackBar);
 }
+
+void showProgressBar(BuildContext context) {
+  showDialog(
+      context: context,
+      builder: (_) => const Center(child: CircularProgressIndicator()));
+}

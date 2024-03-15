@@ -1,10 +1,10 @@
+import 'package:demoapp/Utils/FireBaseServices..dart';
 import 'package:demoapp/Utils/Validators.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_sizer/flutter_sizer.dart';
 
 import '../TrapiiziumContainer.dart';
-import '../constants.dart';
+import '../Constants/AppConstants.dart';
 import 'HomeScreen.dart';
 
 class SignupScreen extends StatefulWidget {
@@ -17,6 +17,10 @@ class SignupScreen extends StatefulWidget {
 
 class _SignupScreenState extends State<SignupScreen> {
   final _formKey = GlobalKey<FormState>();
+  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _passwordConirmController =
+      TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
 
   bool _visibility = false;
   bool _visibility2 = false;
@@ -67,6 +71,7 @@ class _SignupScreenState extends State<SignupScreen> {
                             SizedBox(
                               width: 70.w,
                               child: TextFormField(
+                                controller: _emailController,
                                 validator: (value) {
                                   return isValidEmail(value);
                                 },
@@ -85,8 +90,12 @@ class _SignupScreenState extends State<SignupScreen> {
                               ),
                             ),
                             SizedBox(
+                              height: 2.h,
+                            ),
+                            SizedBox(
                               width: 70.w,
                               child: TextFormField(
+                                controller: _passwordController,
                                 validator: (value) {
                                   return validatePassword(value);
                                 },
@@ -109,13 +118,22 @@ class _SignupScreenState extends State<SignupScreen> {
                                   ),
                                   labelText: 'Password',
                                 ),
-                                obscureText: _visibility,
+                                obscureText: !_visibility,
                               ),
+                            ),
+                            SizedBox(
+                              height: 2.h,
                             ),
                             SizedBox(
                               width: 70.w,
                               child: TextFormField(
-                                keyboardType: TextInputType.emailAddress,
+                                controller: _passwordConirmController,
+                                validator: (value) {
+                                  return conirmPassword(
+                                      _passwordConirmController.text.trim(),
+                                      _passwordController.text.trim());
+                                },
+                                keyboardType: TextInputType.visiblePassword,
                                 style: const TextStyle(color: kprimaryColor),
                                 cursorColor: kprimaryColor,
                                 decoration: const InputDecoration().copyWith(
@@ -134,7 +152,7 @@ class _SignupScreenState extends State<SignupScreen> {
                                   ),
                                   labelText: 'Confirm Password',
                                 ),
-                                obscureText: _visibility2,
+                                obscureText: !_visibility2,
                               ),
                             ),
                           ],
@@ -146,8 +164,11 @@ class _SignupScreenState extends State<SignupScreen> {
                           child: ElevatedButton(
                             onPressed: () {
                               if (_formKey.currentState!.validate()) {
-                                Navigator.pushNamedAndRemoveUntil(context,
-                                    HomeScreen.routename, (route) => false);
+                                FirebaseAuthService()
+                                    .registerWithEmailAndPassword(
+                                        _emailController.text.trim(),
+                                        _passwordController.text.trim(),
+                                        context);
                               }
                             },
                             child: Text('Sign In'),

@@ -39,6 +39,8 @@ dependencies:
   firebase_auth: ^4.17.9
   awesome_snackbar_content_new: ^0.1.2
   firebase_core: ^2.27.1
+  http: ^1.2.1
+  provider: ^6.1.2
 
 dev_dependencies:
   flutter_test:
